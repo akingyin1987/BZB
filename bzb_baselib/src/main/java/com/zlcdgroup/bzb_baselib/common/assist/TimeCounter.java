@@ -1,6 +1,7 @@
 package com.zlcdgroup.bzb_baselib.common.assist;
 
-import com.litesuits.android.log.Log;
+
+import android.util.Log;
 
 /**
  * Time Counter.

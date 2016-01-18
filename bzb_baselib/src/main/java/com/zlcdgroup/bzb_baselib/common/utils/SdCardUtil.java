@@ -4,7 +4,9 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
-import com.litesuits.android.log.Log;
+
+
+import com.zlcdgroup.bzb_baselib.logger.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -61,19 +63,19 @@ public class SdCardUtil {
             bufferedReader = new BufferedReader(new InputStreamReader(new BufferedInputStream(p.getInputStream())));
             String lineStr;
             while ((lineStr = bufferedReader.readLine()) != null) {
-                Log.i(TAG, "proc/mounts:   " + lineStr);
+                Logger.i(TAG, "proc/mounts:   " + lineStr);
                 if (lineStr.contains("sdcard")
                     && lineStr.contains(".android_secure")) {
                     String[] strArray = lineStr.split(" ");
                     if (strArray.length >= 5) {
                         sdcard = strArray[1].replace("/.android_secure", "");
-                        Log.i(TAG, "find sd card path:   " + sdcard);
+                        Logger.i(TAG, "find sd card path:   " + sdcard);
                         return sdcard;
                     }
                 }
                 if (p.waitFor() != 0 && p.exitValue() == 1) {
                     // p.exitValue()==0表示正常结束，1：非正常结束
-                    Log.e(TAG, cmd + " 命令执行失败");
+                    Logger.e(TAG, cmd + " 命令执行失败");
                 }
             }
         } catch (Exception e) {
@@ -88,7 +90,7 @@ public class SdCardUtil {
             }
         }
         sdcard = Environment.getExternalStorageDirectory().getPath();
-        Log.i(TAG, "not find sd card path return default:   " + sdcard);
+        Logger.i(TAG, "not find sd card path return default:   " + sdcard);
         return sdcard;
     }
 
@@ -105,7 +107,7 @@ public class SdCardUtil {
             String line;
             BufferedReader br = new BufferedReader(isr);
             while ((line = br.readLine()) != null) {
-                Log.i(TAG, "mount:  " + line);
+                Logger.i(TAG, "mount:  " + line);
                 if (line.contains("secure")) {
                     continue;
                 }
@@ -173,9 +175,7 @@ public class SdCardUtil {
                 sd.totalBytes = sf.getTotalBytes();
             }
         }
-        if (Log.isPrint) {
-            Log.i(TAG, sd.toString());
-        }
+
         return sd;
     }
 

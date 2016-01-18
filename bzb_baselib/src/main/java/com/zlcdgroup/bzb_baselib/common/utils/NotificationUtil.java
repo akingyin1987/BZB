@@ -1,5 +1,6 @@
 package com.zlcdgroup.bzb_baselib.common.utils;
 
+import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,7 +13,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import com.litesuits.android.log.Log;
+
+
+import com.zlcdgroup.bzb_baselib.logger.Logger;
 
 import java.util.ArrayList;
 
@@ -26,7 +29,7 @@ public class NotificationUtil {
 
     public static void notification(Context context, Uri uri,
                                     int icon, String ticker, String title, String msg) {
-        Log.i(TAG, "notiry uri :" + uri);
+        Logger.i(TAG, "notiry uri :" + uri);
         // 设置通知的事件消息
         Intent intent = new Intent();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
@@ -90,7 +93,9 @@ public class NotificationUtil {
             notification.ledOnMS = 5000; //闪光时间，毫秒
 
             notification.tickerText = ticker;
-            notification.setLatestEventInfo(context, title, msg, pendingIntent);
+
+
+           // notification.setLatestEventInfo(context, title, msg, pendingIntent);
             // 把Notification传递给NotificationManager
             notificationManager.notify(id, notification);
         }

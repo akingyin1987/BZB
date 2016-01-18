@@ -5,6 +5,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.SystemClock;
+import android.widget.EditText;
 
 
 import java.text.SimpleDateFormat;
@@ -17,19 +18,29 @@ import java.util.Date;
  * @date 2014-09-25
  */
 public class AndroidUtil {
+
+
     private static final String TAG = AndroidUtil.class.getSimpleName();
 
     /**
      * 获取 MAC 地址
      * <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
      */
+
+
     public static String getMacAddress(Context context) {
         //wifi mac地址
-        WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        WifiInfo info = wifi.getConnectionInfo();
-        String mac = info.getMacAddress();
+        try{
+            WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+            WifiInfo info = wifi.getConnectionInfo();
+            String mac = info.getMacAddress();
+            return  mac;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-        return mac;
+
+        return null;
     }
 
     /**

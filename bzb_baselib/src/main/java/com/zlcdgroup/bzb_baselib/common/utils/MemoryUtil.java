@@ -5,7 +5,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Build;
 import android.text.format.Formatter;
-import com.litesuits.android.log.Log;
+
 
 /**
  * Get memory info.
@@ -60,9 +60,7 @@ public class MemoryUtil {
      */
     public static String printMemInfo() {
         String info = FileUtil.getFileOutputString(MEM_INFO_PATH);
-        if (Log.isPrint) {
-            Log.i(TAG, "_______  内存信息:   \n" + info);
-        }
+
         return info;
     }
 
@@ -83,17 +81,7 @@ public class MemoryUtil {
     @TargetApi(Build.VERSION_CODES.CUPCAKE)
     public static ActivityManager.MemoryInfo printMemoryInfo(Context context) {
         ActivityManager.MemoryInfo mi = getMemoryInfo(context);
-        if (Log.isPrint) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("_______  Memory :   ");
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                sb.append("\ntotalMem        :").append(mi.totalMem);
-            }
-            sb.append("\navailMem        :").append(mi.availMem);
-            sb.append("\nlowMemory       :").append(mi.lowMemory);
-            sb.append("\nthreshold       :").append(mi.threshold);
-            Log.i(TAG, sb.toString());
-        }
+
         return mi;
     }
 

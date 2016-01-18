@@ -3,7 +3,9 @@ package com.zlcdgroup.bzb_baselib.common.assist;
 import android.content.Context;
 import android.os.Build;
 import android.os.PowerManager;
-import com.litesuits.android.log.Log;
+
+import com.zlcdgroup.bzb_baselib.logger.Logger;
+
 
 /**
  * <!-- 亮屏 -->
@@ -27,7 +29,7 @@ public class WakeLock {
      */
     public boolean isScreenOn() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ECLAIR_MR1) {
-            Log.e("Log : ", "can not call isScreenOn if SDK_INT < 7 ");
+            Logger.e("Log : ", "can not call isScreenOn if SDK_INT < 7 ");
             return false;
         } else {
             return powerManager.isScreenOn();
@@ -36,18 +38,18 @@ public class WakeLock {
 
     public void turnScreenOn() {
         //点亮亮屏
-        Log.i("Log : ", "PowerManager.WakeLock : wakeLock.isHeld: " + wakeLock.isHeld());
+        Logger.i("Log : ", "PowerManager.WakeLock : wakeLock.isHeld: " + wakeLock.isHeld());
         if (!wakeLock.isHeld()) {
-            Log.i("Log : ", "PowerManager.WakeLock : 点亮屏幕");
+            Logger.i("Log : ", "PowerManager.WakeLock : 点亮屏幕");
             wakeLock.acquire();
         }
     }
 
     public void turnScreenOff() {
         //释放亮屏
-        Log.i("Log : ", "PowerManager.WakeLock : wakeLock.isHeld: " + wakeLock.isHeld());
+        Logger.i("Log : ", "PowerManager.WakeLock : wakeLock.isHeld: " + wakeLock.isHeld());
         if (wakeLock.isHeld()) {
-            Log.i("Log : ", "PowerManager.WakeLock : 灭掉屏幕");
+            Logger.i("Log : ", "PowerManager.WakeLock : 灭掉屏幕");
             try {
                 wakeLock.release();
             } catch (Exception e) {
